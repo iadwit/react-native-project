@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Text, Button, SafeAreaView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
-// import firestore from '@react-native-firebase/firestore';
-// Import the functions you need from the SDKs you need
+
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { getFirestore, addDoc, collection } from "firebase/firestore";
 
-// import firebase from "firebase/app";
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAzGf_dDf8WcjI2UZb6pFsQZYcnpeDB5Tk",
-//   authDomain: "react-native-app-25dab.firebaseapp.com",
-//   projectId: "react-native-app-25dab",
-//   storageBucket: "react-native-app-25dab.appspot.com",
-//   messagingSenderId: "726051856412",
-//   appId: "1:726051856412:web:2fccbaf79d57682058ffd9",
-//   measurementId: "G-NWKMFG0C20"
-// };
 
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
   apiKey: "AIzaSyAzGf_dDf8WcjI2UZb6pFsQZYcnpeDB5Tk",
   authDomain: "react-native-app-25dab.firebaseapp.com",
@@ -32,24 +18,15 @@ const firebaseConfig = {
   measurementId: "G-NWKMFG0C20"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
 
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
-// // Initialize Firebase
-// console.log("1");
-// firebase.initializeApp(firebaseConfig);
-// console.log("2");
-// const db = firebase.firestore();
-// console.log("3");
-// const analytics = getAnalytics(app);
 
+const db = getFirestore(app);
 
 
 export function Home({navigation}) {
-  // const navigation = useNavigation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [date, setDate] = useState(new Date().toISOString())
@@ -74,7 +51,6 @@ export function Home({navigation}) {
   
 
   const handleButtonPress = async () => {
-    //Push captured details to Firebase Firestore
     try {
         const docRef = await addDoc(collection(db, "data"), {
           firstName:firstName,
@@ -94,29 +70,6 @@ export function Home({navigation}) {
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-    //   db
-    //   .collection('data')
-    //   .add({
-    //     firstName:firstName,
-    //     lastName:lastName,
-    //     dateofBirth:dateOfBirth,
-    //     occupation:occupation,
-    //     company:company,
-    //   })
-    //   .then(() => {
-    //     console.log('User details saved successfully!');
-    //     // Navigate to Page2
-    //     navigation.navigate('Page2', {
-    //       firstName,
-    //       lastName,
-    //       date,
-    //       occupation,
-    //       company,
-    //     });
-    //  })
-    //   .catch((error) => {
-    //     console.error('Error saving user details:', error);
-    //   });
   };
 
  return (
@@ -169,10 +122,8 @@ export function Home({navigation}) {
  }
 
 export function Page2({route}) {
-  // const route = useRoute();
   const { firstName, lastName, date, occupation, company } = route.params;
 
-  // Calculate age based on the date of birth
   const currentDate = new Date();
   const birthDate = new Date(date);
   const age = currentDate.getFullYear() - birthDate.getFullYear();

@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {Home,Page2} from './Screens';
 
-// AppRegistry.registerComponent(appName, () => Route);
 const Stack = createNativeStackNavigator();
 
 export default function App() {
